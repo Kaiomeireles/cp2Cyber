@@ -1,0 +1,4 @@
+node_modules/
+zap_report.html
+report_json.json
+.DS_Store
