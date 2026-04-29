@@ -31,13 +31,11 @@ jobs:
 
       - name: ZAP Scan
         run: |
-          # Criando o diretório de trabalho para o ZAP
-          mkdir -p zap_out
-          # Rodando o ZAP via Docker com --network="host" para acessar o localhost:8080 do runner
+          # Rodando o ZAP via Docker com caminhos absolutos para o volume /zap/wrk/
           docker run --network="host" -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
             -t http://localhost:8080 \
-            -J report_json.json \
-            -r zap_report.html || true
+            -J /zap/wrk/report_json.json \
+            -r /zap/wrk/zap_report.html || true
           
       - name: Check for High/Critical Vulnerabilities
         run: |
